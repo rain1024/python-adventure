@@ -93,36 +93,51 @@ gantt
     axisFormat %S
     tickInterval 1second
 
+    %% Colors from Tailwind CSS
+    %% Main Thread - Blue
     section Main Thread
-    Create Threads :crit, a1, 0, 1s
+    Initial State :milestone, m0, 0, 0s
+    Create Threads :crit, done, a1, 0, 1s
     Wait for Threads :active, a2, after a1, 5s
 
+    %% Thread 1 - Red
     section Thread 1
-    Process :done, t1, after a1, 4s
+    Process :active, t1, after a1, 4s
 
+    %% Thread 2 - Orange
     section Thread 2
-    Process :done, t2, after a1, 4s
+    Process :active, t2, after a1, 4s
 
+    %% Thread 3 - Yellow
     section Thread 3
-    Process :done, t3, after a1, 4s
+    Process :active, t3, after a1, 4s
 
-    %%{init: { 
+    %% Styling
+    %%{ init: { 
         'theme': 'base',
         'themeVariables': {
-            'critBorderColor': '#2563eb',
-            'critBkgColor': '#3b82f6',
-            'activeBorderColor': '#2563eb',
-            'activeBkgColor': '#3b82f6',
-            'doneBorderColor': '#dc2626',
-            'doneBkgColor': '#ef4444',
-            'sectionBkgColor': '#f8fafc',
-            'sectionBkgColor2': '#f1f5f9',
-            'altSectionBkgColor': '#f8fafc',
-            'todayLineColor': '#475569',
-            'gridColor': '#cbd5e1',
-            'lineWidth': '1px'
+            'primaryColor': '#2563eb',
+            'primaryTextColor': '#ffffff',
+            'primaryBorderColor': '#1d4ed8',
+            'secondaryColor': '#3b82f6',
+            'secondaryTextColor': '#ffffff',
+            'secondaryBorderColor': '#2563eb',
+            'tertiaryColor': '#60a5fa',
+            'tertiaryTextColor': '#1e3a8a',
+            'tertiaryBorderColor': '#3b82f6',
+            'critBorderColor': '#ef4444',
+            'critBkgColor': '#dc2626',
+            'activeTaskBkgColor': '#f97316',
+            'activeTaskBorderColor': '#ea580c',
+            'taskTextColor': '#ffffff',
+            'taskTextOutsideColor': '#000000',
+            'taskTextLightColor': '#ffffff',
+            'taskTextDarkColor': '#1e3a8a',
+            'sectionBkgColor': '#f1f5f9',
+            'sectionBkgColor2': '#e2e8f0',
+            'todayLineColor': '#94a3b8'
         }
-    }}%%
+    } }%%
 ```
 
 ## Multiprocessing
