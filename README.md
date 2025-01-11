@@ -140,6 +140,52 @@ gantt
     } }%%
 ```
 
+## Thread Pool
+
+Thread Pool là một mô hình quản lý thread hiệu quả, trong đó một nhóm các worker thread được tạo sẵn để xử lý các tác vụ từ một hàng đợi công việc. Thay vì tạo và hủy thread cho mỗi tác vụ, Thread Pool tái sử dụng các thread đã có, giúp:
+
+- **Tối ưu tài nguyên**: Giảm overhead của việc tạo và hủy thread liên tục
+- **Kiểm soát tốt hơn**: Giới hạn số lượng thread chạy đồng thời
+- **Quản lý hiệu quả**: Tự động phân phối tác vụ cho các thread đang rảnh
+
+Python cung cấp Thread Pool thông qua `concurrent.futures.ThreadPoolExecutor`:
+
+```python
+from concurrent.futures import ThreadPoolExecutor
+import time
+
+def worker(n):
+    print(f"Processing {n}")
+    time.sleep(2)
+    return n * n
+
+# Sử dụng with để tự động cleanup
+with ThreadPoolExecutor(max_workers=3) as executor:
+    # Map các tác vụ cho thread pool
+    results = executor.map(worker, [1, 2, 3, 4, 5])
+    # Kết quả được trả về theo thứ tự của input
+    for result in results:
+        print(f"Result: {result}")
+```
+
+```mermaid
+flowchart TD
+    A[Task Queue] --> B[Thread Pool]
+    B --> C[Thread 1]
+    B --> D[Thread 2]
+    B --> E[Thread N]
+    C --> F[Results]
+    D --> F
+    E --> F
+
+    style A fill:#2563eb,stroke:#1d4ed8,color:#ffffff
+    style B fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style C fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style D fill:#f97316,stroke:#ea580c,color:#ffffff
+    style E fill:#22c55e,stroke:#16a34a,color:#ffffff
+    style F fill:#3b82f6,stroke:#2563eb,color:#ffffff
+```
+
 ## Multiprocessing
 
 Module `multiprocessing` cho phép tận dụng nhiều CPU bằng cách tạo các tiến trình con:
