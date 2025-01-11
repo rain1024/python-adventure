@@ -42,6 +42,70 @@ for t in threads:
     t.join()
 ```
 
+## Threading IO
+
+Thread được tạo (fork) thông qua `threading.Thread()` và khởi động bằng `start()`, cho phép chương trình chạy nhiều tác vụ đồng thời. Mỗi thread sẽ thực thi công việc của riêng nó một cách độc lập với các thread khác. Sau khi tạo và khởi động các thread, chương trình sử dụng `join()` để đợi tất cả các thread hoàn thành trước khi tiếp tục thực thi.
+
+
+```mermaid
+flowchart TD
+    A[Start] --> D[Create Threads]
+    D --> E{For each thread}
+    E --> F[Thread 1]
+    E --> G[Thread 2]
+    E --> H[Thread ...]
+    E --> I[Thread N]
+    
+    F --> L1[Process]
+    G --> L2[Process]
+    H --> L3[Process]
+    I --> L4[Process]
+    
+    L1 --> M[Join/Wait threads]
+    L2 --> M
+    L3 --> M
+    L4 --> M
+    
+    M --> O[End]
+
+    style A fill:#3B82F6,stroke:#2563EB,color:#ffffff
+    style D fill:#60A5FA,stroke:#3B82F6,color:#ffffff
+    style E fill:#93C5FD,stroke:#60A5FA,color:#1E3A8A
+    style F fill:#F87171,stroke:#EF4444,color:#ffffff
+    style G fill:#FB923C,stroke:#F97316,color:#ffffff
+    style H fill:#FBBF24,stroke:#F59E0B,color:#ffffff
+    style I fill:#A3E635,stroke:#84CC16,color:#ffffff
+    style L1 fill:#F87171,stroke:#EF4444,color:#ffffff
+    style L2 fill:#FB923C,stroke:#F97316,color:#ffffff
+    style L3 fill:#FBBF24,stroke:#F59E0B,color:#ffffff
+    style L4 fill:#A3E635,stroke:#84CC16,color:#ffffff
+    style M fill:#60A5FA,stroke:#3B82F6,color:#ffffff
+    style O fill:#3B82F6,stroke:#2563EB,color:#ffffff
+```
+
+
+Hoạt động của main thread và các thread con được mô tả trong sơ đồ
+
+```mermaid
+gantt
+    title Timeline of Main Thread and Child Threads
+    dateFormat s
+    axisFormat %S
+
+    section Main Thread
+    Create Threads      :crit, a1, 0, 1s
+    Wait for Threads    :done, a2, after a1, 3s
+    
+    section Thread 1
+    Process       :active, t1, after a1, 2s
+    
+    section Thread 2
+    Process       :active, t2, after a1, 2s
+    
+    section Thread 3
+    Process       :active, t3, after a1, 2s
+```
+
 ## Multiprocessing
 
 Module `multiprocessing` cho phép tận dụng nhiều CPU bằng cách tạo các tiến trình con:
