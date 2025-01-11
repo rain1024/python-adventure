@@ -6,7 +6,7 @@ Process (Tiến trình) và Thread (Luồng) là hai khái niệm cơ bản tron
 
 Mỗi thread có vùng nhớ stack (ngăn xếp) và register (thanh ghi) riêng để lưu trữ các biến cục bộ và thông tin thực thi, trong khi tất cả các thread trong cùng một process đều chia sẻ vùng nhớ heap chung. Điều này cho phép các thread có thể dễ dàng trao đổi dữ liệu với nhau, nhưng cũng đồng thời đòi hỏi cơ chế đồng bộ hóa phù hợp để tránh xung đột khi truy cập dữ liệu đồng thời.
 
-![](thread_and_process/Thread and Process.png)
+![](./thread_and_process/Thread and Process.png)
 
 Trong Python, việc sử dụng thread bị giới hạn bởi Global Interpreter Lock (GIL), khiến cho tại một thời điểm chỉ có một thread có thể thực thi mã Python. Vì vậy, thread trong Python thường được sử dụng cho các tác vụ I/O-bound (như đọc/ghi file, gọi API), trong khi process thường được dùng cho các tác vụ CPU-bound (như tính toán phức tạp) để tận dụng được sức mạnh của nhiều CPU.
 
