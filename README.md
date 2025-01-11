@@ -109,7 +109,7 @@ gantt
     Process :active, t2, after a1, 4s
 
     %% Thread 3 - Yellow
-    section Thread 3
+    section Thread N
     Process :active, t3, after a1, 4s
 
     %% Styling
