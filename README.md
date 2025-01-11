@@ -68,19 +68,19 @@ flowchart TD
     
     M --> O[End]
 
-    style A fill:#3B82F6,stroke:#2563EB,color:#ffffff
-    style D fill:#60A5FA,stroke:#3B82F6,color:#ffffff
-    style E fill:#93C5FD,stroke:#60A5FA,color:#1E3A8A
-    style F fill:#F87171,stroke:#EF4444,color:#ffffff
-    style G fill:#FB923C,stroke:#F97316,color:#ffffff
-    style H fill:#FBBF24,stroke:#F59E0B,color:#ffffff
-    style I fill:#A3E635,stroke:#84CC16,color:#ffffff
-    style L1 fill:#F87171,stroke:#EF4444,color:#ffffff
-    style L2 fill:#FB923C,stroke:#F97316,color:#ffffff
-    style L3 fill:#FBBF24,stroke:#F59E0B,color:#ffffff
-    style L4 fill:#A3E635,stroke:#84CC16,color:#ffffff
-    style M fill:#60A5FA,stroke:#3B82F6,color:#ffffff
-    style O fill:#3B82F6,stroke:#2563EB,color:#ffffff
+    style A fill:#2563eb,stroke:#1d4ed8,color:#ffffff
+    style D fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style E fill:#60a5fa,stroke:#3b82f6,color:#1e3a8a
+    style F fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style G fill:#f97316,stroke:#ea580c,color:#ffffff
+    style H fill:#eab308,stroke:#ca8a04,color:#ffffff
+    style I fill:#22c55e,stroke:#16a34a,color:#ffffff
+    style L1 fill:#ef4444,stroke:#dc2626,color:#ffffff
+    style L2 fill:#f97316,stroke:#ea580c,color:#ffffff
+    style L3 fill:#eab308,stroke:#ca8a04,color:#ffffff
+    style L4 fill:#22c55e,stroke:#16a34a,color:#ffffff
+    style M fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    style O fill:#2563eb,stroke:#1d4ed8,color:#ffffff
 ```
 
 
@@ -108,10 +108,10 @@ gantt
     %%{init: { 
         'theme': 'base',
         'themeVariables': {
-            'critBorderColor': '#3B82F6',
-            'critBkgColor': '#60A5FA',
-            'doneColor': '#60A5FA',
-            'doneBorderColor': '#3B82F6',
+            'critBorderColor': '#2563eb',
+            'critBkgColor': '#3b82f6',
+            'doneColor': '#3b82f6',
+            'doneBorderColor': '#2563eb',
             'lineWidth': '1px'
         }
     }}%%
