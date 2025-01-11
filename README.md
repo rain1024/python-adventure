@@ -91,27 +91,35 @@ gantt
     title Timeline of Main Thread and Child Threads
     dateFormat s
     axisFormat %S
+    tickInterval 1second
 
     section Main Thread
     Create Threads :crit, a1, 0, 1s
-    Wait for Threads :done, a2, after a1, 6s
+    Wait for Threads :active, a2, after a1, 5s
 
     section Thread 1
-    Process :t1, after a1, 4s
+    Process :done, t1, after a1, 4s
 
     section Thread 2
-    Process :t2, after a1, 4s
+    Process :done, t2, after a1, 4s
 
     section Thread 3
-    Process :t3, after a1, 4s
+    Process :done, t3, after a1, 4s
 
     %%{init: { 
         'theme': 'base',
         'themeVariables': {
             'critBorderColor': '#2563eb',
             'critBkgColor': '#3b82f6',
-            'doneColor': '#3b82f6',
-            'doneBorderColor': '#2563eb',
+            'activeBorderColor': '#2563eb',
+            'activeBkgColor': '#3b82f6',
+            'doneBorderColor': '#dc2626',
+            'doneBkgColor': '#ef4444',
+            'sectionBkgColor': '#f8fafc',
+            'sectionBkgColor2': '#f1f5f9',
+            'altSectionBkgColor': '#f8fafc',
+            'todayLineColor': '#475569',
+            'gridColor': '#cbd5e1',
             'lineWidth': '1px'
         }
     }}%%
