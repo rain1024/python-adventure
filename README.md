@@ -93,17 +93,28 @@ gantt
     axisFormat %S
 
     section Main Thread
-    Create Threads      :crit, a1, 0, 1s
-    Wait for Threads    :done, a2, after a1, 3s
-    
+    Create Threads :crit, a1, 0, 1s
+    Wait for Threads :done, a2, after a1, 6s
+
     section Thread 1
-    Process       :active, t1, after a1, 2s
-    
+    Process :t1, after a1, 4s
+
     section Thread 2
-    Process       :active, t2, after a1, 2s
-    
+    Process :t2, after a1, 4s
+
     section Thread 3
-    Process       :active, t3, after a1, 2s
+    Process :t3, after a1, 4s
+
+    %%{init: { 
+        'theme': 'base',
+        'themeVariables': {
+            'critBorderColor': '#3B82F6',
+            'critBkgColor': '#60A5FA',
+            'doneColor': '#60A5FA',
+            'doneBorderColor': '#3B82F6',
+            'lineWidth': '1px'
+        }
+    }}%%
 ```
 
 ## Multiprocessing
