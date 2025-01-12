@@ -2,7 +2,106 @@
 
 ## Concurrent
 
+Lập trình đồng thời (Concurrent Programming) là khả năng của một chương trình thực hiện nhiều tác vụ song song với nhau. Trong môi trường đa nhiệm hiện đại, lập trình đồng thời giúp tận dụng tối đa tài nguyên phần cứng và cải thiện hiệu suất của ứng dụng.
+
+Có hai cách tiếp cận chính trong lập trình đồng thời:
+
+1. **Parallelism (Song song)**: Thực sự chạy nhiều tác vụ cùng một lúc trên các CPU khác nhau.
+2. **Concurrency (Đồng thời)**: Quản lý nhiều tác vụ cùng lúc, nhưng không nhất thiết phải chạy đồng thời về mặt vật lý.
+
+
+```mermaid
+flowchart LR
+    subgraph Parallelism
+        direction TB
+        A1[Task 1] --> B1[CPU 1]
+        A2[Task 2] --> B2[CPU 2]
+        A3[Task 3] --> B3[CPU 3]
+        A4[Task 4] --> B4[CPU 4]
+    end
+    
+    subgraph Concurrency
+        direction TB
+        C1[Task 1] --> D[CPU]
+        C2[Task 2] --> D
+        C3[Task 3] --> D
+        C4[Task 4] --> D
+    end
+
+    style A1 fill:#ef4444,color:white
+    style A2 fill:#f97316,color:white
+    style A3 fill:#eab308,color:white
+    style A4 fill:#22c55e,color:white
+    
+    style B1 fill:#2563eb,color:white
+    style B2 fill:#2563eb,color:white
+    style B3 fill:#2563eb,color:white
+    style B4 fill:#2563eb,color:white
+    
+    style C1 fill:#ef4444,color:white
+    style C2 fill:#f97316,color:white
+    style C3 fill:#eab308,color:white
+    style C4 fill:#22c55e,color:white
+    
+    style D fill:#2563eb,color:white
+```
+
+
+
+
+
+Trong Python, có một số cơ chế để thực hiện lập trình đồng thời:
+
+- **Threading**: Sử dụng nhiều luồng trong cùng một process
+- **Multiprocessing**: Sử dụng nhiều process độc lập
+- **Asynchronous I/O**: Sử dụng coroutines và event loop
+- **Thread Pool/Process Pool**: Quản lý và tái sử dụng một nhóm worker threads/processes
+
+Mỗi cơ chế có ưu nhược điểm riêng và phù hợp với các loại tác vụ khác nhau:
+
+- Threading phù hợp với I/O-bound tasks
+- Multiprocessing phù hợp với CPU-bound tasks
+- Async I/O phù hợp với network I/O và high-concurrency
+
 Process (Tiến trình) và Thread (Luồng) là hai khái niệm cơ bản trong lập trình đồng thời. Process là một chương trình đang chạy trên hệ điều hành, nó có không gian bộ nhớ riêng biệt và độc lập. Mỗi process có thể chứa nhiều thread, và các thread trong cùng một process chia sẻ tài nguyên và không gian bộ nhớ với nhau.
+
+```mermaid
+flowchart TD
+    subgraph Process
+        direction TB
+        H[Heap Memory<br>Shared between threads]
+        
+        subgraph T1[Thread 1]
+            S1[Stack Memory]
+            R1[Registers]
+        end
+        
+        subgraph T2[Thread 2]
+            S2[Stack Memory]
+            R2[Registers]
+        end
+        
+        subgraph T3[Thread 3]
+            S3[Stack Memory]
+            R3[Registers]
+        end
+        
+        T1 --> H
+        T2 --> H
+        T3 --> H
+    end
+    
+    style H fill:#2563eb,color:white
+    style T1 fill:#ef4444,color:white
+    style T2 fill:#f97316,color:white
+    style T3 fill:#22c55e,color:white
+    style S1 fill:#ef4444,color:white
+    style S2 fill:#f97316,color:white
+    style S3 fill:#22c55e,color:white
+    style R1 fill:#ef4444,color:white
+    style R2 fill:#f97316,color:white
+    style R3 fill:#22c55e,color:white
+```
 
 Mỗi thread có vùng nhớ stack (ngăn xếp) và register (thanh ghi) riêng để lưu trữ các biến cục bộ và thông tin thực thi, trong khi tất cả các thread trong cùng một process đều chia sẻ vùng nhớ heap chung. Điều này cho phép các thread có thể dễ dàng trao đổi dữ liệu với nhau, nhưng cũng đồng thời đòi hỏi cơ chế đồng bộ hóa phù hợp để tránh xung đột khi truy cập dữ liệu đồng thời.
 
@@ -169,21 +268,33 @@ with ThreadPoolExecutor(max_workers=3) as executor:
 ```
 
 ```mermaid
-flowchart TD
-    A[Task Queue] --> B[Thread Pool]
-    B --> C[Thread 1]
-    B --> D[Thread 2]
-    B --> E[Thread N]
-    C --> F[Results]
-    D --> F
-    E --> F
-
-    style A fill:#2563eb,stroke:#1d4ed8,color:#ffffff
-    style B fill:#3b82f6,stroke:#2563eb,color:#ffffff
-    style C fill:#ef4444,stroke:#dc2626,color:#ffffff
-    style D fill:#f97316,stroke:#ea580c,color:#ffffff
-    style E fill:#22c55e,stroke:#16a34a,color:#ffffff
-    style F fill:#3b82f6,stroke:#2563eb,color:#ffffff
+sequenceDiagram
+    participant C as Client
+    participant Q as Task Queue
+    participant P as Thread Pool
+    participant T1 as Thread 1
+    participant T2 as Thread 2
+    participant T3 as Thread 3
+    
+    C->>+Q: Submit Task 1
+    C->>+Q: Submit Task 2
+    C->>+Q: Submit Task 3
+    C->>+Q: Submit Task 4
+    
+    Q->>+P: Task Available
+    P->>+T1: Assign Task 1
+    Q->>+P: Task Available
+    P->>+T2: Assign Task 2
+    Q->>+P: Task Available
+    P->>+T3: Assign Task 3
+    
+    T1-->>-P: Task 1 Complete
+    P->>+T1: Assign Task 4
+    T2-->>-P: Task 2 Complete
+    T3-->>-P: Task 3 Complete
+    T1-->>-P: Task 4 Complete
+    
+    P-->>-C: All Tasks Complete
 ```
 
 ## Multiprocessing
