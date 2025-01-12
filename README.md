@@ -9,7 +9,6 @@ Có hai cách tiếp cận chính trong lập trình đồng thời:
 1. **Parallelism (Song song)**: Thực sự chạy nhiều tác vụ cùng một lúc trên các CPU khác nhau.
 2. **Concurrency (Đồng thời)**: Quản lý nhiều tác vụ cùng lúc, nhưng không nhất thiết phải chạy đồng thời về mặt vật lý.
 
-
 ```mermaid
 flowchart LR
     subgraph Parallelism
@@ -178,7 +177,6 @@ flowchart TD
     style O fill:#2563eb,stroke:#1d4ed8,color:#ffffff
 ```
 
-
 Hoạt động của main thread và các thread con được mô tả trong sơ đồ
 
 ```mermaid
@@ -234,6 +232,39 @@ gantt
         }
     } }%%
 ```
+
+## Daemon Thread
+
+**Daemon thread** là một thread được chạy nền, nó sẽ tự động kết thúc khi main thread kết thúc. Daemon thread thường được sử dụng cho các tác vụ phụ trợ như logging, monitoring và cleanup tasks.
+
+> **Lưu ý**: Khác với non-daemon thread, daemon thread sẽ không ngăn chương trình kết thúc khi main thread hoàn tất công việc.
+
+### Đặc điểm chính:
+- ✅ Tự động kết thúc khi main thread kết thúc
+- ✅ Phù hợp cho các tác vụ background không quan trọng
+- ⚠️ Không đảm bảo hoàn thành công việc trước khi kết thúc
+
+```python
+import threading
+import time
+
+def infinite_task():
+    while True:
+        print("Daemon Thread is running...")
+        time.sleep(1)
+
+def main():
+    daemon_thread = threading.Thread(target=infinite_task)
+    daemon_thread.daemon = True
+    daemon_thread.start()
+    time.sleep(3)
+    print("Main thread finished")
+
+if __name__ == "__main__":
+    main()
+```
+
+
 
 ## Thread Pool
 
