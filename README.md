@@ -1,6 +1,6 @@
 # Python Adventure
 
-## Concurrent
+## 🔄 Concurrent Programming
 
 Lập trình đồng thời (Concurrent Programming) là khả năng của một chương trình thực hiện nhiều tác vụ song song với nhau. Trong môi trường đa nhiệm hiện đại, lập trình đồng thời giúp tận dụng tối đa tài nguyên phần cứng và cải thiện hiệu suất của ứng dụng.
 
@@ -45,6 +45,8 @@ flowchart LR
     style D fill:#2563eb,color:white
 ```
 
+### 🛠️ Cơ chế lập trình đồng thời trong Python
+
 Trong Python, có một số cơ chế để thực hiện lập trình đồng thời:
 
 - **Threading**: Sử dụng nhiều luồng trong cùng một process
@@ -52,11 +54,17 @@ Trong Python, có một số cơ chế để thực hiện lập trình đồng 
 - **Asynchronous I/O**: Sử dụng coroutines và event loop
 - **Thread Pool/Process Pool**: Quản lý và tái sử dụng một nhóm worker threads/processes
 
+### 📊 Phân loại và ứng dụng
+
 Mỗi cơ chế có ưu nhược điểm riêng và phù hợp với các loại tác vụ khác nhau:
 
-- Threading phù hợp với I/O-bound tasks
-- Multiprocessing phù hợp với CPU-bound tasks
-- Async I/O phù hợp với network I/O và high-concurrency
+| Cơ chế | Phù hợp với |
+|--------|-------------|
+| Threading | I/O-bound tasks |
+| Multiprocessing | CPU-bound tasks |
+| Async I/O | Network I/O và high-concurrency |
+
+### 🔄 Process và Thread
 
 Process (Tiến trình) và Thread (Luồng) là hai khái niệm cơ bản trong lập trình đồng thời. Process là một chương trình đang chạy trên hệ điều hành, nó có không gian bộ nhớ riêng biệt và độc lập. Mỗi process có thể chứa nhiều thread, và các thread trong cùng một process chia sẻ tài nguyên và không gian bộ nhớ với nhau.
 
@@ -98,24 +106,24 @@ flowchart TD
     style R3 fill:#22c55e,color:white
 ```
 
-Mỗi thread có vùng nhớ stack (ngăn xếp) và register (thanh ghi) riêng để lưu trữ các biến cục bộ và thông tin thực thi, trong khi tất cả các thread trong cùng một process đều chia sẻ vùng nhớ heap chung. Điều này cho phép các thread có thể dễ dàng trao đổi dữ liệu với nhau, nhưng cũng đồng thời đòi hỏi cơ chế đồng bộ hóa phù hợp để tránh xung đột khi truy cập dữ liệu đồng thời.
+> **Lưu ý**: Mỗi thread có vùng nhớ stack (ngăn xếp) và register (thanh ghi) riêng để lưu trữ các biến cục bộ và thông tin thực thi, trong khi tất cả các thread trong cùng một process đều chia sẻ vùng nhớ heap chung.
 
 ![Thread and Process](./thread_and_process/thread_and_process.svg)
 
-Trong Python, việc sử dụng thread bị giới hạn bởi Global Interpreter Lock (GIL), khiến cho tại một thời điểm chỉ có một thread có thể thực thi mã Python. Vì vậy, thread trong Python thường được sử dụng cho các tác vụ I/O-bound (như đọc/ghi file, gọi API), trong khi process thường được dùng cho các tác vụ CPU-bound (như tính toán phức tạp) để tận dụng được sức mạnh của nhiều CPU.
+> **Quan trọng**: Trong Python, việc sử dụng thread bị giới hạn bởi Global Interpreter Lock (GIL), khiến cho tại một thời điểm chỉ có một thread có thể thực thi mã Python.
 
-Python cung cấp một số cách để thực hiện lập trình đồng thời (concurrent programming):
+## 🧵 Threading
 
-## Threading
+Python hỗ trợ đa luồng thông qua module `threading`. Threading phù hợp cho các tác vụ I/O-bound.
 
-Python hỗ trợ đa luồng thông qua module `threading`. Threading phù hợp cho các tác vụ I/O-bound:
+### Đặc điểm chính
 
-- **Global Interpreter Lock (GIL)**: Python có GIL, một cơ chế khóa cho phép chỉ một luồng thực thi tại một thời điểm trong interpreter. Điều này ảnh hưởng đến hiệu suất của các tác vụ CPU-bound.
-- **Ưu điểm**: Dễ chia sẻ dữ liệu giữa các luồng, tiêu tốn ít tài nguyên.
-- **Nhược điểm**: Không tận dụng được nhiều CPU do GIL.
-- **Ứng dụng**: Phù hợp cho các tác vụ I/O như đọc/ghi file, gọi API, truy cập database.
+- ✅ **Global Interpreter Lock (GIL)**: Python có GIL, một cơ chế khóa cho phép chỉ một luồng thực thi tại một thời điểm trong interpreter
+- ✅ **Ưu điểm**: Dễ chia sẻ dữ liệu giữa các luồng, tiêu tốn ít tài nguyên
+- ⚠️ **Nhược điểm**: Không tận dụng được nhiều CPU do GIL
+- 🎯 **Ứng dụng**: Phù hợp cho các tác vụ I/O như đọc/ghi file, gọi API, truy cập database
 
-Ví dụ cơ bản về threading:
+### Ví dụ cơ bản
 
 ```python
 import threading
@@ -136,10 +144,9 @@ for t in threads:
     t.join()
 ```
 
-## Threading IO
+## 🔄 Threading IO
 
-Thread được tạo (fork) thông qua `threading.Thread()` và khởi động bằng `start()`, cho phép chương trình chạy nhiều tác vụ đồng thời. Mỗi thread sẽ thực thi công việc của riêng nó một cách độc lập với các thread khác. Sau khi tạo và khởi động các thread, chương trình sử dụng `join()` để đợi tất cả các thread hoàn thành trước khi tiếp tục thực thi.
-
+Thread được tạo (fork) thông qua `threading.Thread()` và khởi động bằng `start()`, cho phép chương trình chạy nhiều tác vụ đồng thời. Mỗi thread sẽ thực thi công việc của riêng nó một cách độc lập với các thread khác.
 
 ```mermaid
 flowchart TD
@@ -177,7 +184,7 @@ flowchart TD
     style O fill:#2563eb,stroke:#1d4ed8,color:#ffffff
 ```
 
-Hoạt động của main thread và các thread con được mô tả trong sơ đồ
+### Timeline hoạt động
 
 ```mermaid
 gantt
@@ -186,68 +193,34 @@ gantt
     axisFormat %S
     tickInterval 1second
 
-    %% Colors from Tailwind CSS
-    %% Main Thread - Blue
     section Main Thread
     Initial State :milestone, m0, 0, 0s
     Create Threads :crit, done, a1, 0, 1s
     Wait for Threads :active, a2, after a1, 5s
 
-    %% Thread 1 - Red
     section Thread 1
     Process :active, t1, after a1, 4s
 
-    %% Thread 2 - Orange
     section Thread 2
     Process :active, t2, after a1, 4s
 
-    %% Thread 3 - Yellow
     section Thread N
     Process :active, t3, after a1, 4s
-
-    %% Styling
-    %%{ init: { 
-        'theme': 'base',
-        'themeVariables': {
-            'primaryColor': '#2563eb',
-            'primaryTextColor': '#ffffff',
-            'primaryBorderColor': '#1d4ed8',
-            'secondaryColor': '#3b82f6',
-            'secondaryTextColor': '#ffffff',
-            'secondaryBorderColor': '#2563eb',
-            'tertiaryColor': '#60a5fa',
-            'tertiaryTextColor': '#1e3a8a',
-            'tertiaryBorderColor': '#3b82f6',
-            'critBorderColor': '#ef4444',
-            'critBkgColor': '#dc2626',
-            'activeTaskBkgColor': '#f97316',
-            'activeTaskBorderColor': '#ea580c',
-            'taskTextColor': '#ffffff',
-            'taskTextOutsideColor': '#000000',
-            'taskTextLightColor': '#ffffff',
-            'taskTextDarkColor': '#1e3a8a',
-            'sectionBkgColor': '#f1f5f9',
-            'sectionBkgColor2': '#e2e8f0',
-            'todayLineColor': '#94a3b8'
-        }
-    } }%%
 ```
 
-## Daemon Thread
+## 👻 Daemon Thread
 
 **Daemon thread** là một thread được chạy nền, nó sẽ tự động kết thúc khi main thread kết thúc. Daemon thread thường được sử dụng cho các tác vụ phụ trợ như logging, monitoring và cleanup tasks.
 
-> **Lưu ý**: Khác với non-daemon thread, daemon thread sẽ không ngăn chương trình kết thúc khi main thread hoàn tất công việc.
-
-**Đặc điểm chính:**
+### Đặc điểm chính
 
 - ✅ Tự động kết thúc khi main thread kết thúc
 - ✅ Phù hợp cho các tác vụ background không quan trọng
 - ⚠️ Không đảm bảo hoàn thành công việc trước khi kết thúc
 
-**Ví dụ:**
+> **Lưu ý**: Khác với non-daemon thread, daemon thread sẽ không ngăn chương trình kết thúc khi main thread hoàn tất công việc.
 
-Trong ví dụ sau, daemon thread sẽ chạy vô tận và chương trình sẽ kết thúc khi main thread hoàn tất công việc (chú ý rằng không cần `join()` để đợi daemon thread kết thúc).
+### Ví dụ
 
 ```python
 import threading
@@ -269,15 +242,22 @@ if __name__ == "__main__":
     main()
 ```
 
-Gantt chart cho ví dụ trên:
-
 ![](./thread_and_process/thread_daemon.svg)
 
-## Synchronization using Lock 
+## 🔒 Synchronization using Lock 
 
-**Lock** là một cơ chế đồng bộ hóa để tránh xung đột khi các thread truy cập và sửa đổi các biến chung. Khi một thread thực hiện `acquire()` lock, các thread khác phải đợi cho đến khi lock được `release()` trước khi có thể truy cập vào vùng code được bảo vệ. Điều này đảm bảo tính *nhất quán của dữ liệu* và tránh được các vấn đề *race condition* khi nhiều thread cùng cập nhật một biến.
+**Lock** là một cơ chế đồng bộ hóa để tránh xung đột khi các thread truy cập và sửa đổi các biến chung.
 
-> **Lưu ý** Với GIL, lock không thể đảm bảo tính nhất quán của dữ liệu trong các tác vụ CPU-bound.
+### Đặc điểm chính
+
+- 🔐 Khi một thread thực hiện `acquire()` lock, các thread khác phải đợi
+- 🔓 Lock được `release()` trước khi thread khác có thể truy cập
+- ✅ Đảm bảo tính *nhất quán của dữ liệu*
+- ⚠️ Tránh được các vấn đề *race condition*
+
+> **Lưu ý**: Với GIL, lock không thể đảm bảo tính nhất quán của dữ liệu trong các tác vụ CPU-bound.
+
+### Ví dụ
 
 ```python
 from threading import Lock
@@ -307,19 +287,76 @@ if __name__ == "__main__":
     print(f"Counter: {counter}")
 ```
 
-Sơ đồ hoạt động của thread và lock:
-
 ![Thread and Lock](./thread_and_process/lock.svg)
 
-## Thread Pool
+## 📬 Thread Queue 
 
-Thread Pool là một mô hình quản lý thread hiệu quả, trong đó một nhóm các worker thread được tạo sẵn để xử lý các tác vụ từ một hàng đợi công việc. Thay vì tạo và hủy thread cho mỗi tác vụ, Thread Pool tái sử dụng các thread đã có, giúp:
+Thread Queue là một cơ chế an toàn để trao đổi dữ liệu giữa các thread trong môi trường đa luồng, giúp đồng bộ hóa và điều phối công việc giữa producer và consumer threads.
 
-- **Tối ưu tài nguyên**: Giảm overhead của việc tạo và hủy thread liên tục
-- **Kiểm soát tốt hơn**: Giới hạn số lượng thread chạy đồng thời
-- **Quản lý hiệu quả**: Tự động phân phối tác vụ cho các thread đang rảnh
+**Đặc điểm chính**
 
-Python cung cấp Thread Pool thông qua `concurrent.futures.ThreadPoolExecutor`:
+- 🔄 Quản lý dữ liệu theo cơ chế FIFO (First In First Out)
+- ✅ Thread-safe interface
+- 🛡️ Tránh race condition
+- 📥 `put()`: thêm item vào queue
+- 📤 `get()`: lấy item ra khỏi queue
+- ⏱️ Hỗ trợ blocking và timeout
+
+![](thread_and_process/thread_queue.svg)
+
+**Ví dụ sử dụng thread queue**
+
+```python
+import queue
+import threading
+import time
+
+def producer(q):
+    for i in range(50):
+        q.put(i)
+        print(f"Produced {i}")
+        time.sleep(0.1)
+    print("Producer done")
+
+def consumer(q):
+    while True:
+        try:
+            item = q.get()
+            print(f"Consumed {item}")
+            time.sleep(0.2)
+            q.task_done()
+        except:
+            break
+    print("Consumer done")
+
+def main():
+    q = queue.Queue(maxsize=10)
+    thread_producer = threading.Thread(target=producer, args=(q,))
+    thread_consumer = threading.Thread(target=consumer, args=(q,), daemon=True)
+    
+    thread_producer.start()
+    thread_consumer.start()
+    
+    # Wait for all tasks to be processed
+    q.join()
+    print("All tasks completed")
+
+if __name__ == "__main__":
+    main()
+```
+
+
+## 👥 Thread Pool
+
+Thread Pool là một mô hình quản lý thread hiệu quả, trong đó một nhóm các worker thread được tạo sẵn để xử lý các tác vụ từ một hàng đợi công việc.
+
+### Ưu điểm
+
+- 🔄 **Tối ưu tài nguyên**: Giảm overhead của việc tạo và hủy thread liên tục
+- 🎮 **Kiểm soát tốt hơn**: Giới hạn số lượng thread chạy đồng thời
+- 📊 **Quản lý hiệu quả**: Tự động phân phối tác vụ cho các thread đang rảnh
+
+### Ví dụ sử dụng ThreadPoolExecutor
 
 ```python
 from concurrent.futures import ThreadPoolExecutor
@@ -338,6 +375,8 @@ with ThreadPoolExecutor(max_workers=3) as executor:
     for result in results:
         print(f"Result: {result}")
 ```
+
+**Sequence Diagram**
 
 ```mermaid
 sequenceDiagram
@@ -369,15 +408,18 @@ sequenceDiagram
     P-->>-C: All Tasks Complete
 ```
 
-## Multiprocessing
+## 🚀 Multiprocessing
 
-Module `multiprocessing` cho phép tận dụng nhiều CPU bằng cách tạo các tiến trình con:
+Module `multiprocessing` cho phép tận dụng nhiều CPU bằng cách tạo các tiến trình con.
 
-- **Ưu điểm**: Vượt qua giới hạn GIL, tận dụng được nhiều CPU.
-- **Nhược điểm**: Tốn nhiều tài nguyên hơn threading, khó chia sẻ dữ liệu giữa các tiến trình.
-- **Ứng dụng**: Phù hợp cho các tác vụ CPU-bound như xử lý hình ảnh, tính toán phức tạp.
+### Đặc điểm
 
-Ví dụ về multiprocessing:
+- ✅ **Ưu điểm**: Vượt qua giới hạn GIL, tận dụng được nhiều CPU
+- ⚠️ **Nhược điểm**: Tốn nhiều tài nguyên hơn threading, khó chia sẻ dữ liệu
+- 🎯 **Ứng dụng**: Phù hợp cho các tác vụ CPU-bound như xử lý hình ảnh, tính toán phức tạp
+
+### Ví dụ
+
 ```python
 from multiprocessing import Process, Pool
 
@@ -390,15 +432,18 @@ if __name__ == '__main__':
         result = p.map(heavy_calculation, [1000000, 2000000, 3000000])
 ```
 
-## Asyncio
+## ⚡ Asyncio
 
-`asyncio` là module cho phép lập trình bất đồng bộ với cú pháp async/await:
+`asyncio` là module cho phép lập trình bất đồng bộ với cú pháp async/await.
 
-- **Ưu điểm**: Hiệu quả cho I/O-bound, dễ quản lý nhiều tác vụ đồng thời.
-- **Nhược điểm**: Yêu cầu thư viện hỗ trợ async, không phù hợp cho CPU-bound.
-- **Ứng dụng**: Web servers, networking, real-time applications.
+### Đặc điểm
 
-Ví dụ về asyncio:
+- ✅ **Ưu điểm**: Hiệu quả cho I/O-bound, dễ quản lý nhiều tác vụ đồng thời
+- ⚠️ **Nhược điểm**: Yêu cầu thư viện hỗ trợ async, không phù hợp cho CPU-bound
+- 🎯 **Ứng dụng**: Web servers, networking, real-time applications
+
+### Ví dụ
+
 ```python
 import asyncio
 
@@ -416,21 +461,23 @@ async def main():
 asyncio.run(main())
 ```
 
-## So sánh và Lựa chọn
+## 📊 So sánh và Lựa chọn
 
-1. **Threading**: Chọn khi cần xử lý nhiều tác vụ I/O và cần chia sẻ dữ liệu.
-2. **Multiprocessing**: Chọn khi cần tận dụng nhiều CPU cho tính toán nặng.
-3. **Asyncio**: Chọn khi cần xử lý nhiều I/O đồng thời với hiệu suất cao.
+| Cơ chế | Khi nào sử dụng |
+|--------|-----------------|
+| Threading | Cần xử lý nhiều tác vụ I/O và cần chia sẻ dữ liệu |
+| Multiprocessing | Cần tận dụng nhiều CPU cho tính toán nặng |
+| Asyncio | Cần xử lý nhiều I/O đồng thời với hiệu suất cao |
 
-## Best Practices
+## 📝 Best Practices
 
-1. Sử dụng threading cho I/O-bound tasks
-2. Sử dụng multiprocessing cho CPU-bound tasks
-3. Sử dụng asyncio cho modern async applications
-4. Tránh over-engineering: đôi khi giải pháp tuần tự đơn giản là đủ
-5. Cẩn thận với race conditions và deadlocks khi sử dụng threading
+1. ✅ Sử dụng threading cho I/O-bound tasks
+2. ✅ Sử dụng multiprocessing cho CPU-bound tasks
+3. ✅ Sử dụng asyncio cho modern async applications
+4. ⚠️ Tránh over-engineering: đôi khi giải pháp tuần tự đơn giản là đủ
+5. 🔒 Cẩn thận với race conditions và deadlocks khi sử dụng threading
 
-## Materials
+## 📚 Materials
 
 * [Python Threading Tutorial: Basic to Advanced (Multithreading, Pool Executors, Daemon, Lock, Events)](https://www.youtube.com/watch?v=Rm9Pic2rpAQ&t=353s&ab_channel=KevinWood%7CRobotics%26AI)
 * [Multithreading for Beginners](https://www.youtube.com/watch?v=gvQGKRlgop4&t=2284s&ab_channel=freeCodeCamp.org)
