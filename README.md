@@ -46,10 +46,6 @@ flowchart LR
     style D fill:#2563eb,color:white
 ```
 
-
-
-
-
 Trong Python, có một số cơ chế để thực hiện lập trình đồng thời:
 
 - **Threading**: Sử dụng nhiều luồng trong cùng một process

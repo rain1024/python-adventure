@@ -14,8 +14,8 @@ for i in range(3):
     threads.append(t)
     t.start()
 
-# for t in threads:
-#     t.join()
+for t in threads:
+    t.join()
 
 # print the end of the program
 print(f"Main thread {threading.current_thread().name} finished")
