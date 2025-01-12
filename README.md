@@ -267,7 +267,9 @@ if __name__ == "__main__":
     main()
 ```
 
+Gantt chart cho ví dụ trên:
 
+![](./thread_and_process/thread_daemon.svg)
 
 ## Thread Pool
 
