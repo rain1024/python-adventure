@@ -247,7 +247,7 @@ gantt
 
 **Ví dụ:**
 
-Trong ví dụ sau, daemon thread sẽ chạy vô tận và chương trình sẽ kết thúc khi main thread hoàn tất công việc.
+Trong ví dụ sau, daemon thread sẽ chạy vô tận và chương trình sẽ kết thúc khi main thread hoàn tất công việc (chú ý rằng không cần `join()` để đợi daemon thread kết thúc).
 
 ```python
 import threading
