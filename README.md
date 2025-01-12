@@ -307,6 +307,10 @@ if __name__ == "__main__":
     print(f"Counter: {counter}")
 ```
 
+Sơ đồ hoạt động của thread và lock:
+
+![Thread and Lock](./thread_and_process/lock.svg)
+
 ## Thread Pool
 
 Thread Pool là một mô hình quản lý thread hiệu quả, trong đó một nhóm các worker thread được tạo sẵn để xử lý các tác vụ từ một hàng đợi công việc. Thay vì tạo và hủy thread cho mỗi tác vụ, Thread Pool tái sử dụng các thread đã có, giúp:
