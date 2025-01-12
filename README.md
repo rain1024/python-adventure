@@ -273,6 +273,40 @@ Gantt chart cho ví dụ trên:
 
 ![](./thread_and_process/thread_daemon.svg)
 
+## Synchronization using Lock 
+
+**Lock** là một cơ chế đồng bộ hóa để tránh xung đột khi các thread truy cập và sửa đổi các biến chung. Khi một thread thực hiện `acquire()` lock, các thread khác phải đợi cho đến khi lock được `release()` trước khi có thể truy cập vào vùng code được bảo vệ. Điều này đảm bảo tính *nhất quán của dữ liệu* và tránh được các vấn đề *race condition* khi nhiều thread cùng cập nhật một biến.
+
+> **Lưu ý** Với GIL, lock không thể đảm bảo tính nhất quán của dữ liệu trong các tác vụ CPU-bound.
+
+```python
+from threading import Lock
+import threading
+
+counter = 0
+counter_lock = Lock()
+
+def increment_counter():
+    global counter
+    counter_lock.acquire()
+    print(f"Task is running {counter}...")
+    for _ in range(100):
+        counter += 1
+    counter_lock.release()
+
+if __name__ == "__main__":
+    threads = []
+    for i in range(5):
+        thread = threading.Thread(target=increment_counter)
+        threads.append(thread)
+        thread.start()
+    
+    for thread in threads:
+        thread.join()
+
+    print(f"Counter: {counter}")
+```
+
 ## Thread Pool
 
 Thread Pool là một mô hình quản lý thread hiệu quả, trong đó một nhóm các worker thread được tạo sẵn để xử lý các tác vụ từ một hàng đợi công việc. Thay vì tạo và hủy thread cho mỗi tác vụ, Thread Pool tái sử dụng các thread đã có, giúp:
