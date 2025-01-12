@@ -239,10 +239,13 @@ gantt
 
 > **Lưu ý**: Khác với non-daemon thread, daemon thread sẽ không ngăn chương trình kết thúc khi main thread hoàn tất công việc.
 
-### Đặc điểm chính:
+**Đặc điểm chính:**
+
 - ✅ Tự động kết thúc khi main thread kết thúc
 - ✅ Phù hợp cho các tác vụ background không quan trọng
 - ⚠️ Không đảm bảo hoàn thành công việc trước khi kết thúc
+
+Ví dụ về daemon thread: Trong ví dụ sau, daemon thread sẽ chạy vô tận và chương trình sẽ kết thúc khi main thread hoàn tất công việc.
 
 ```python
 import threading
