@@ -398,13 +398,13 @@ if __name__ == '__main__':
 
 `asyncio` là module cho phép lập trình bất đồng bộ với cú pháp async/await.
 
-### Đặc điểm
+**Đặc điểm**
 
 - ✅ **Ưu điểm**: Hiệu quả cho I/O-bound, dễ quản lý nhiều tác vụ đồng thời
 - ⚠️ **Nhược điểm**: Yêu cầu thư viện hỗ trợ async, không phù hợp cho CPU-bound
 - 🎯 **Ứng dụng**: Web servers, networking, real-time applications
 
-### Ví dụ
+**Ví dụ**
 
 ```python
 import asyncio
@@ -423,7 +423,7 @@ async def main():
 asyncio.run(main())
 ```
 
-## 📊 So sánh và Lựa chọn
+**📊 So sánh và Lựa chọn**
 
 | Cơ chế | Khi nào sử dụng |
 |--------|-----------------|
@@ -431,7 +431,7 @@ asyncio.run(main())
 | Multiprocessing | Cần tận dụng nhiều CPU cho tính toán nặng |
 | Asyncio | Cần xử lý nhiều I/O đồng thời với hiệu suất cao |
 
-## 📝 Best Practices
+**📝 Best Practices**
 
 1. ✅ Sử dụng threading cho I/O-bound tasks
 2. ✅ Sử dụng multiprocessing cho CPU-bound tasks
