@@ -54,7 +54,7 @@ Trong Python, có một số cơ chế để thực hiện lập trình đồng 
 - **Asynchronous I/O**: Sử dụng coroutines và event loop
 - **Thread Pool/Process Pool**: Quản lý và tái sử dụng một nhóm worker threads/processes
 
-### 📊 Phân loại và ứng dụng
+**📊 Phân loại và ứng dụng**
 
 Mỗi cơ chế có ưu nhược điểm riêng và phù hợp với các loại tác vụ khác nhau:
 
