@@ -68,44 +68,6 @@ Mỗi cơ chế có ưu nhược điểm riêng và phù hợp với các loại
 
 Process (Tiến trình) và Thread (Luồng) là hai khái niệm cơ bản trong lập trình đồng thời. Process là một chương trình đang chạy trên hệ điều hành, nó có không gian bộ nhớ riêng biệt và độc lập. Mỗi process có thể chứa nhiều thread, và các thread trong cùng một process chia sẻ tài nguyên và không gian bộ nhớ với nhau.
 
-```mermaid
-flowchart TD
-    subgraph Process
-        direction TB
-        H[Heap Memory<br>Shared between threads]
-        
-        subgraph T1[Thread 1]
-            S1[Stack Memory]
-            R1[Registers]
-        end
-        
-        subgraph T2[Thread 2]
-            S2[Stack Memory]
-            R2[Registers]
-        end
-        
-        subgraph T3[Thread 3]
-            S3[Stack Memory]
-            R3[Registers]
-        end
-        
-        T1 --> H
-        T2 --> H
-        T3 --> H
-    end
-    
-    style H fill:#2563eb,color:white
-    style T1 fill:#ef4444,color:white
-    style T2 fill:#f97316,color:white
-    style T3 fill:#22c55e,color:white
-    style S1 fill:#ef4444,color:white
-    style S2 fill:#f97316,color:white
-    style S3 fill:#22c55e,color:white
-    style R1 fill:#ef4444,color:white
-    style R2 fill:#f97316,color:white
-    style R3 fill:#22c55e,color:white
-```
-
 > **Lưu ý**: Mỗi thread có vùng nhớ stack (ngăn xếp) và register (thanh ghi) riêng để lưu trữ các biến cục bộ và thông tin thực thi, trong khi tất cả các thread trong cùng một process đều chia sẻ vùng nhớ heap chung.
 
 ![Thread and Process](./thread_and_process/thread_and_process.svg)
