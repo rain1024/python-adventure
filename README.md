@@ -312,6 +312,8 @@ if __name__ == "__main__":
 
 Thread Pool là một mô hình quản lý thread hiệu quả, trong đó một nhóm các worker thread được tạo sẵn để xử lý các tác vụ từ một hàng đợi công việc.
 
+![](thread_and_process/thread_pool.svg)
+
 ### Ưu điểm
 
 - 🔄 **Tối ưu tài nguyên**: Giảm overhead của việc tạo và hủy thread liên tục
@@ -338,37 +340,6 @@ with ThreadPoolExecutor(max_workers=3) as executor:
         print(f"Result: {result}")
 ```
 
-**Sequence Diagram**
-
-```mermaid
-sequenceDiagram
-    participant C as Client
-    participant Q as Task Queue
-    participant P as Thread Pool
-    participant T1 as Thread 1
-    participant T2 as Thread 2
-    participant T3 as Thread 3
-    
-    C->>+Q: Submit Task 1
-    C->>+Q: Submit Task 2
-    C->>+Q: Submit Task 3
-    C->>+Q: Submit Task 4
-    
-    Q->>+P: Task Available
-    P->>+T1: Assign Task 1
-    Q->>+P: Task Available
-    P->>+T2: Assign Task 2
-    Q->>+P: Task Available
-    P->>+T3: Assign Task 3
-    
-    T1-->>-P: Task 1 Complete
-    P->>+T1: Assign Task 4
-    T2-->>-P: Task 2 Complete
-    T3-->>-P: Task 3 Complete
-    T1-->>-P: Task 4 Complete
-    
-    P-->>-C: All Tasks Complete
-```
 
 ## 🚀 Multiprocessing
 
