@@ -443,3 +443,4 @@ asyncio.run(main())
 
 * [Python Threading Tutorial: Basic to Advanced (Multithreading, Pool Executors, Daemon, Lock, Events)](https://www.youtube.com/watch?v=Rm9Pic2rpAQ&t=353s&ab_channel=KevinWood%7CRobotics%26AI)
 * [Multithreading for Beginners](https://www.youtube.com/watch?v=gvQGKRlgop4&t=2284s&ab_channel=freeCodeCamp.org)
+* [SuperFastPython](https://superfastpython.com/)
